@@ -11,8 +11,7 @@ import ordersRouter from './src/routes/ordersRoutes.js';
 
 const app = express();
 
-const PORT =
-  process.env.PORT || 4000;
+const PORT = 4000;
 
 app.use(cors());
 

@@ -48,7 +48,6 @@ dotnet run
 צרו קובץ בשם `.env` בתיקיית `orders-api/` והוסיפו את התוכן הבא:
 
 MONGODB_URI=your_mongodb_connection_string
-PORT=4000
 
 לאחר מכן הריצו:
 cd orders-api
