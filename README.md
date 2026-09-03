@@ -55,7 +55,7 @@ cd orders-api
 npm install
 npm run dev
 
-השרת ירוץ בכתובת: http://localhost:3001
+השרת ירוץ בכתובת: http://localhost:4000
 
 ### 3. צד לקוח (Client)
 cd client
