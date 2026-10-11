@@ -29,14 +29,9 @@ async function startServer() {
   try {
     await connectDatabase();
 
-    app.listen(
-      PORT,
-      () => {
-        console.log(
-          `Orders API running on http://localhost:${PORT}`
-        );
-      }
-    );
+    app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Orders API running on port ${PORT}`);
+});
   } catch (error) {
     console.error(
       'Failed to start server:',
