@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx server.ts"
+  "test": "echo \"No tests configured\"",
+  "dev": "tsx server.ts",
+  "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
