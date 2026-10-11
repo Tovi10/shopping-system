@@ -1,0 +1,39 @@
+name: Orders API CI
+
+on:
+  push:
+    paths:
+      - "orders-api/**"
+      - ".github/workflows/orders-api-ci.yml"
+  pull_request:
+    paths:
+      - "orders-api/**"
+      - ".github/workflows/orders-api-ci.yml"
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: orders-api
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: orders-api/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npm run typecheck
+
+      - name: Build Docker image
+        run: docker build -t orders-api .
