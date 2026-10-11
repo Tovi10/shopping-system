@@ -1,19 +1,62 @@
-name: Orders API CI
+name: Shopping System CI
 
 on:
   push:
-    paths:
-      - "orders-api/**"
-      - ".github/workflows/orders-api-ci.yml"
+    branches: [main]
   pull_request:
-    paths:
-      - "orders-api/**"
-      - ".github/workflows/orders-api-ci.yml"
+    branches: [main]
 
 jobs:
-  typecheck:
+  client:
+    name: Build Client
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+  products-api:
+    name: Build Products API
     runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 11.0.x
+          include-prerelease: true
+
+      - name: Restore
+        run: dotnet restore products-api/products-api.csproj
+
+      - name: Build
+        run: dotnet build products-api/products-api.csproj --configuration Release --no-restore
+
+  orders-api:
+    name: Check Orders API
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: orders-api
